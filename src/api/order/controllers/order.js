@@ -32,10 +32,12 @@ module.exports = createCoreController('api::order.order', ({strapi}) => ({
     const (data, met) = await super.find(ctx);
     return
   }*/
-  create: async (ctx, next) => {
+ async create(ctx, next) {
     const user = ctx.state.user;
-    const {data, meta} = this.create(ctx);
-    data.user = user;
+    ctx.request.body.owner = user;
+    const {data, meta} = super.create(ctx);
+    // bad video authentification process not show on video tutorial and the tets with authentificated user pass not work ... I see this video part use a token string ... 
+    // https://www.youtube.com/watch?v=kohbOP6Eh9I
     return {data, meta}
   }
 }));
